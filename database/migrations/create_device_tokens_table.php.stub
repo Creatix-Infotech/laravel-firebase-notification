@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up(): void
+    {
+        $tableName = config('notification-manager.device_tokens.table', 'device_tokens');
+
+        if (! Schema::hasTable($tableName)) {
+            Schema::create($tableName, function (Blueprint $table) {
+                $table->id();
+                $table->nullableMorphs('tokenable'); // Links to User or any authenticatable model
+                $table->text('token');
+                $table->string('platform', 20)->default('android'); // 'android' or 'ios'
+                $table->string('device_model', 100)->nullable();
+                $table->string('app_version', 50)->nullable();
+                $table->boolean('is_active')->default(true);
+                $table->timestamp('last_active_at')->nullable();
+                $table->timestamps();
+
+                $table->index('platform');
+                $table->index('is_active');
+            });
+        }
+    }
+
+    public function down(): void
+    {
+        $tableName = config('notification-manager.device_tokens.table', 'device_tokens');
+        Schema::dropIfExists($tableName);
+    }
+};
+

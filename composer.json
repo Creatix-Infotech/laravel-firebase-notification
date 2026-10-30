@@ -1,0 +1,80 @@
+{
+    "name": "creatix/app-notification-manager",
+    "description": "Production-ready Laravel package for sending rich, real-time push notifications (WhatsApp, Snapchat, Instagram style) to Android and iOS devices using FCM HTTP v1 and APNs HTTP/2.",
+    "type": "library",
+    "keywords": [
+        "creatix",
+        "laravel",
+        "laravel-package",
+        "notifications",
+        "push-notifications",
+        "fcm",
+        "fcm-v1",
+        "firebase-cloud-messaging",
+        "apns",
+        "apns-http2",
+        "apple-push-notification",
+        "ios",
+        "android",
+        "whatsapp-notifications",
+        "snapchat-notifications",
+        "instagram-notifications",
+        "rich-notifications",
+        "heads-up-notifications"
+    ],
+    "homepage": "https://github.com/Creatix-Infotech/app-notification-manager",
+    "support": {
+        "source": "https://github.com/Creatix-Infotech/app-notification-manager",
+        "docs": "https://github.com/Creatix-Infotech/app-notification-manager#readme"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Creatix Infotech",
+            "email": "hello@creatixinfotech.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.2|^8.3|^8.4|^8.5",
+        "illuminate/contracts": "^11.0|^12.0|^13.0",
+        "illuminate/support": "^11.0|^12.0|^13.0",
+        "illuminate/notifications": "^11.0|^12.0|^13.0",
+        "illuminate/http": "^11.0|^12.0|^13.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "firebase/php-jwt": "^6.10",
+        "google/auth": "^1.30"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^9.0|^10.0",
+        "phpunit/phpunit": "^10.5|^11.0|^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Creatix\\AppNotificationManager\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Creatix\\AppNotificationManager\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Creatix\\AppNotificationManager\\AppNotificationManagerServiceProvider"
+            ],
+            "aliases": {
+                "AppNotification": "Creatix\\AppNotificationManager\\Facades\\AppNotification"
+            }
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
