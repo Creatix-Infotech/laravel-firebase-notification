@@ -89,9 +89,9 @@ interface NotificationMessageInterface
     /**
      * Convert message into APNs HTTP/2 headers.
      *
-     * @param string $bundleId
+     * @param string|null $bundleId
      * @return array<string, string>
      */
-    public function toApnsHeaders(string $bundleId): array;
+    public function toApnsHeaders(?string $bundleId = null): array;
 }
 

@@ -333,10 +333,12 @@ class AppNotificationMessage implements NotificationMessageInterface
     /**
      * Convert message into APNs HTTP/2 request headers.
      */
-    public function toApnsHeaders(string $bundleId): array
+    public function toApnsHeaders(?string $bundleId = null): array
     {
+        $topic = $bundleId ?: 'com.example.app';
+
         $headers = [
-            'apns-topic' => $bundleId,
+            'apns-topic' => $topic,
             'apns-push-type' => $this->apnsConfig->getPushType(),
             'apns-priority' => (string) $this->apnsConfig->getPriority(),
         ];
