@@ -22,14 +22,26 @@ class ApnsChannel
             return null;
         }
 
-        $token = $notifiable->routeNotificationFor('apns', $notification)
-            ?? ($notifiable->apns_token ?? ($notifiable->device_token ?? null));
+        $token = null;
 
-        if (! $token) {
+        if (is_object($notifiable)) {
+            if (method_exists($notifiable, 'routeNotificationFor')) {
+                $token = $notifiable->routeNotificationFor('apns', $notification);
+            }
+
+            if (! $token && isset($notifiable->apns_token)) {
+                $token = $notifiable->apns_token;
+            }
+
+            if (! $token && isset($notifiable->device_token)) {
+                $token = $notifiable->device_token;
+            }
+        }
+
+        if (! $token || ! is_string($token)) {
             return null;
         }
 
         return AppNotification::apns()->send($token, $message);
     }
 }
-

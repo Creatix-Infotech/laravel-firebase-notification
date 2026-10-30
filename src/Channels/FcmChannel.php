@@ -22,14 +22,26 @@ class FcmChannel
             return null;
         }
 
-        $token = $notifiable->routeNotificationFor('fcm', $notification)
-            ?? ($notifiable->fcm_token ?? ($notifiable->device_token ?? null));
+        $token = null;
 
-        if (! $token) {
+        if (is_object($notifiable)) {
+            if (method_exists($notifiable, 'routeNotificationFor')) {
+                $token = $notifiable->routeNotificationFor('fcm', $notification);
+            }
+
+            if (! $token && isset($notifiable->fcm_token)) {
+                $token = $notifiable->fcm_token;
+            }
+
+            if (! $token && isset($notifiable->device_token)) {
+                $token = $notifiable->device_token;
+            }
+        }
+
+        if (! $token || ! is_string($token)) {
             return null;
         }
 
         return AppNotification::fcm()->send($token, $message);
     }
 }
-

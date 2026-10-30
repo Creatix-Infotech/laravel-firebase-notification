@@ -9,7 +9,7 @@ use Creatix\AppNotificationManager\Drivers\FcmV1Driver;
 use Creatix\AppNotificationManager\Exceptions\DeviceTokenException;
 use Creatix\AppNotificationManager\Responses\BatchPushResponse;
 use Creatix\AppNotificationManager\Responses\PushResponse;
-use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Container\Container;
 
 class NotificationManager
 {
@@ -21,7 +21,7 @@ class NotificationManager
     protected array $drivers = [];
 
     public function __construct(
-        protected Application $app
+        protected Container $app
     ) {}
 
     /**
@@ -46,7 +46,9 @@ class NotificationManager
      */
     public function fcm(): FcmV1Driver
     {
-        return $this->driver('fcm');
+        /** @var FcmV1Driver $driver */
+        $driver = $this->driver('fcm');
+        return $driver;
     }
 
     /**
@@ -54,7 +56,9 @@ class NotificationManager
      */
     public function apns(): ApnsHttp2Driver
     {
-        return $this->driver('apns');
+        /** @var ApnsHttp2Driver $driver */
+        $driver = $this->driver('apns');
+        return $driver;
     }
 
     /**
@@ -110,7 +114,9 @@ class NotificationManager
      */
     protected function resolveDriver(string $name): NotificationDriverInterface
     {
-        $config = $this->app['config']->get('notification-manager', []);
+        /** @var \Illuminate\Contracts\Config\Repository $configRepo */
+        $configRepo = $this->app->make('config');
+        $config = (array) $configRepo->get('notification-manager', []);
 
         return match ($name) {
             'fcm', 'android', 'google' => new FcmV1Driver($config['fcm'] ?? []),
@@ -124,7 +130,8 @@ class NotificationManager
      */
     public function getDefaultDriver(): string
     {
-        return $this->app['config']->get('notification-manager.default', 'fcm');
+        /** @var \Illuminate\Contracts\Config\Repository $configRepo */
+        $configRepo = $this->app->make('config');
+        return (string) $configRepo->get('notification-manager.default', 'fcm');
     }
 }
-

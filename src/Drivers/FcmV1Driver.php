@@ -134,14 +134,14 @@ class FcmV1Driver implements NotificationDriverInterface
     protected function logInfo(string $message, array $context = []): void
     {
         if (! empty($this->config['logging']['enabled'])) {
-            Log::channel($this->config['logging']['channel'] ?? 'daily')->info("[AppNotification FCM] {$message}", $context);
+            Log::info("[AppNotification FCM] {$message}", $context);
         }
     }
 
     protected function logError(string $message, array $context = []): void
     {
         if (! empty($this->config['logging']['enabled'])) {
-            Log::channel($this->config['logging']['channel'] ?? 'daily')->error("[AppNotification FCM] {$message}", $context);
+            Log::error("[AppNotification FCM] {$message}", $context);
         }
     }
 }

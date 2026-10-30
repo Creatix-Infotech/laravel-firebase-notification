@@ -2,6 +2,7 @@
 
 namespace Creatix\AppNotificationManager\Auth;
 
+use Carbon\Carbon;
 use Creatix\AppNotificationManager\Exceptions\InvalidConfigurationException;
 use Firebase\JWT\JWT;
 use Illuminate\Support\Facades\Cache;
@@ -30,7 +31,7 @@ class ApnsJwtManager
 
         $cacheKey = 'app_notification_apns_jwt_' . md5("{$keyId}_{$teamId}");
 
-        return Cache::remember($cacheKey, now()->addMinutes(50), function () {
+        return Cache::remember($cacheKey, Carbon::now()->addMinutes(50), function () {
             return $this->generateToken();
         });
     }
@@ -61,7 +62,7 @@ class ApnsJwtManager
         }
 
         if (! empty($this->config['private_key_path']) && file_exists($this->config['private_key_path'])) {
-            return file_get_contents($this->config['private_key_path']);
+            return (string) file_get_contents($this->config['private_key_path']);
         }
 
         throw InvalidConfigurationException::missingApnsCredentials();
@@ -84,4 +85,3 @@ class ApnsJwtManager
         return JWT::encode($payload, $privateKey, 'ES256', $keyId);
     }
 }
-

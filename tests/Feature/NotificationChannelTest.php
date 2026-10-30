@@ -6,10 +6,8 @@ use Creatix\AppNotificationManager\Channels\AppNotificationChannel;
 use Creatix\AppNotificationManager\Contracts\HasDeviceTokens;
 use Creatix\AppNotificationManager\Contracts\NotificationMessageInterface;
 use Creatix\AppNotificationManager\Messages\Presets\ChatMessagePreset;
-use Creatix\AppNotificationManager\Responses\PushResponse;
 use Creatix\AppNotificationManager\Tests\TestCase;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Notification as NotificationFacade;
 
 class DummyUser implements HasDeviceTokens
 {
@@ -26,12 +24,12 @@ class DummyUser implements HasDeviceTokens
 
 class SampleOrderNotification extends Notification
 {
-    public function via($notifiable): array
+    public function via(mixed $notifiable): array
     {
         return [AppNotificationChannel::class];
     }
 
-    public function toAppNotification($notifiable): NotificationMessageInterface
+    public function toAppNotification(mixed $notifiable): NotificationMessageInterface
     {
         return ChatMessagePreset::create()
             ->sender('Store Bot')
@@ -54,4 +52,3 @@ class NotificationChannelTest extends TestCase
         $this->assertEquals(1, $message->getBadge());
     }
 }
-

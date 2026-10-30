@@ -44,12 +44,18 @@ class AppNotificationChannel
      */
     protected function resolveTokens(mixed $notifiable, Notification $notification): array
     {
-        if ($routing = $notifiable->routeNotificationFor('app_notification', $notification)) {
-            return is_array($routing) ? $routing : [$routing];
+        if (! is_object($notifiable)) {
+            return [];
         }
 
-        if ($routing = $notifiable->routeNotificationFor('social_push', $notification)) {
-            return is_array($routing) ? $routing : [$routing];
+        if (method_exists($notifiable, 'routeNotificationFor')) {
+            if ($routing = $notifiable->routeNotificationFor('app_notification', $notification)) {
+                return is_array($routing) ? $routing : [$routing];
+            }
+
+            if ($routing = $notifiable->routeNotificationFor('social_push', $notification)) {
+                return is_array($routing) ? $routing : [$routing];
+            }
         }
 
         if ($notifiable instanceof HasDeviceTokens) {
@@ -57,19 +63,19 @@ class AppNotificationChannel
             return is_array($tokens) ? $tokens : [$tokens];
         }
 
-        if (! empty($notifiable->device_token)) {
+        if (isset($notifiable->device_token) && ! empty($notifiable->device_token)) {
             return [
                 [
-                    'token' => $notifiable->device_token,
-                    'platform' => $notifiable->device_type ?? null,
+                    'token' => (string) $notifiable->device_token,
+                    'platform' => isset($notifiable->device_type) ? (string) $notifiable->device_type : null,
                 ],
             ];
         }
 
-        if (! empty($notifiable->fcm_token)) {
+        if (isset($notifiable->fcm_token) && ! empty($notifiable->fcm_token)) {
             return [
                 [
-                    'token' => $notifiable->fcm_token,
+                    'token' => (string) $notifiable->fcm_token,
                     'platform' => 'android',
                 ],
             ];
@@ -78,10 +84,10 @@ class AppNotificationChannel
         if (method_exists($notifiable, 'deviceTokens') && is_iterable($notifiable->deviceTokens)) {
             $tokens = [];
             foreach ($notifiable->deviceTokens as $device) {
-                if (! empty($device->token)) {
+                if (is_object($device) && isset($device->token) && ! empty($device->token)) {
                     $tokens[] = [
-                        'token' => $device->token,
-                        'platform' => $device->platform ?? null,
+                        'token' => (string) $device->token,
+                        'platform' => isset($device->platform) ? (string) $device->platform : null,
                     ];
                 }
             }
@@ -91,4 +97,3 @@ class AppNotificationChannel
         return [];
     }
 }
-

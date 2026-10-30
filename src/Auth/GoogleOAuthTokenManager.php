@@ -2,6 +2,7 @@
 
 namespace Creatix\AppNotificationManager\Auth;
 
+use Carbon\Carbon;
 use Creatix\AppNotificationManager\Exceptions\InvalidConfigurationException;
 use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
@@ -32,7 +33,7 @@ class GoogleOAuthTokenManager
     {
         $cacheKey = 'app_notification_fcm_oauth_token_' . md5($this->config['project_id'] ?? 'default');
 
-        return Cache::remember($cacheKey, now()->addMinutes(50), function () {
+        return Cache::remember($cacheKey, Carbon::now()->addMinutes(50), function () {
             return $this->fetchNewAccessToken();
         });
     }
@@ -64,7 +65,7 @@ class GoogleOAuthTokenManager
 
         if (! empty($this->config['credentials_path']) && file_exists($this->config['credentials_path'])) {
             $content = file_get_contents($this->config['credentials_path']);
-            $parsed = json_decode($content, true);
+            $parsed = json_decode((string) $content, true);
             if (is_array($parsed)) {
                 return $parsed;
             }
@@ -103,7 +104,7 @@ class GoogleOAuthTokenManager
         ];
 
         // Format private key properly
-        $privateKey = str_replace('\n', "\n", $privateKey);
+        $privateKey = str_replace('\n', "\n", (string) $privateKey);
 
         $jwt = JWT::encode($payload, $privateKey, 'RS256');
 
@@ -125,4 +126,3 @@ class GoogleOAuthTokenManager
         return $body['access_token'];
     }
 }
-

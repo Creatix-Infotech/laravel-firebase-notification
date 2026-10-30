@@ -167,14 +167,14 @@ class ApnsHttp2Driver implements NotificationDriverInterface
     protected function logInfo(string $message, array $context = []): void
     {
         if (! empty($this->config['logging']['enabled'])) {
-            Log::channel($this->config['logging']['channel'] ?? 'daily')->info("[AppNotification APNs] {$message}", $context);
+            Log::info("[AppNotification APNs] {$message}", $context);
         }
     }
 
     protected function logError(string $message, array $context = []): void
     {
         if (! empty($this->config['logging']['enabled'])) {
-            Log::channel($this->config['logging']['channel'] ?? 'daily')->error("[AppNotification APNs] {$message}", $context);
+            Log::error("[AppNotification APNs] {$message}", $context);
         }
     }
 }

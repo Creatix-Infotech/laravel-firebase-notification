@@ -7,6 +7,10 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 abstract class TestCase extends Orchestra
 {
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     * @return array<int, class-string>
+     */
     protected function getPackageProviders($app): array
     {
         return [
@@ -14,12 +18,17 @@ abstract class TestCase extends Orchestra
         ];
     }
 
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     */
     protected function getEnvironmentSetUp($app): void
     {
-        $app['config']->set('notification-manager.fcm.project_id', 'test-fcm-project');
-        $app['config']->set('notification-manager.apns.bundle_id', 'com.example.testapp');
-        $app['config']->set('notification-manager.apns.key_id', 'ABC123DEFG');
-        $app['config']->set('notification-manager.apns.team_id', 'TEAM123456');
+        /** @var \Illuminate\Contracts\Config\Repository $config */
+        $config = $app->make('config');
+
+        $config->set('notification-manager.fcm.project_id', 'test-fcm-project');
+        $config->set('notification-manager.apns.bundle_id', 'com.example.testapp');
+        $config->set('notification-manager.apns.key_id', 'ABC123DEFG');
+        $config->set('notification-manager.apns.team_id', 'TEAM123456');
     }
 }
-
