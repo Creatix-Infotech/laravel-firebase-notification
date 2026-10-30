@@ -45,6 +45,8 @@ class FcmV1Driver implements NotificationDriverInterface
         $url = "https://fcm.googleapis.com/v1/projects/{$projectId}/messages:send";
         $payload = $message->toFcmPayload($deviceToken);
 
+        $verify = $this->config['ssl_verify'] ?? true;
+
         try {
             $accessToken = $this->tokenManager->getAccessToken();
 
@@ -54,6 +56,7 @@ class FcmV1Driver implements NotificationDriverInterface
                     'Content-Type' => 'application/json; UTF-8',
                 ],
                 'json' => $payload,
+                'verify' => $verify,
                 'http_errors' => false,
             ]);
 
@@ -69,6 +72,7 @@ class FcmV1Driver implements NotificationDriverInterface
                         'Content-Type' => 'application/json; UTF-8',
                     ],
                     'json' => $payload,
+                    'verify' => $verify,
                     'http_errors' => false,
                 ]);
                 $statusCode = $response->getStatusCode();

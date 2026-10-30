@@ -108,11 +108,14 @@ class GoogleOAuthTokenManager
 
         $jwt = JWT::encode($payload, $privateKey, 'RS256');
 
+        $verify = $this->config['ssl_verify'] ?? true;
+
         $response = $this->httpClient->post(self::GOOGLE_OAUTH2_TOKEN_URI, [
             'form_params' => [
                 'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
                 'assertion' => $jwt,
             ],
+            'verify' => $verify,
             'http_errors' => false,
         ]);
 
