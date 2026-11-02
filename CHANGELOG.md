@@ -1,11 +1,11 @@
 # Changelog
 
-All notable changes to `creatix/app-notification-manager` will be documented in this file.
+All notable changes to `creatix/laravel-firebase-notification` will be documented in this file.
 
 ## [1.0.0] - 2026-10-30
 
 ### Added
-- Initial release of **App Notification Manager** for Laravel.
+- Initial release of **Laravel Firebase Notification** for Laravel.
 - Support for **Android FCM HTTP v1 API** using Google OAuth2 Service Account authentication.
 - Support for **iOS APNs HTTP/2** using modern `.p8` ES256 JWT authentication.
 - High-priority heads-up notification channel presets:

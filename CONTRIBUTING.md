@@ -1,6 +1,6 @@
-# Contributing to App Notification Manager
+# Contributing to Laravel Firebase Notification
 
-Thank you for considering contributing to `creatix/app-notification-manager`!
+Thank you for considering contributing to `creatix/laravel-firebase-notification`!
 
 ## Pull Request Process
 

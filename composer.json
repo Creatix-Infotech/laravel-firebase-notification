@@ -1,5 +1,5 @@
 {
-    "name": "creatix/app-notification-manager",
+    "name": "creatix/laravel-firebase-notification",
     "description": "Production-ready Laravel package for sending rich, real-time push notifications (WhatsApp, Snapchat, Instagram style) to Android and iOS devices using FCM HTTP v1 and APNs HTTP/2.",
     "type": "library",
     "keywords": [
@@ -22,10 +22,10 @@
         "rich-notifications",
         "heads-up-notifications"
     ],
-    "homepage": "https://github.com/Creatix-Infotech/app-notification-manager",
+    "homepage": "https://github.com/Creatix-Infotech/laravel-firebase-notification",
     "support": {
-        "source": "https://github.com/Creatix-Infotech/app-notification-manager",
-        "docs": "https://github.com/Creatix-Infotech/app-notification-manager#readme"
+        "source": "https://github.com/Creatix-Infotech/laravel-firebase-notification",
+        "docs": "https://github.com/Creatix-Infotech/laravel-firebase-notification#readme"
     },
     "license": "MIT",
     "authors": [

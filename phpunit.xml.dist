@@ -4,7 +4,7 @@
          bootstrap="vendor/autoload.php"
          colors="true">
     <testsuites>
-        <testsuite name="App Notification Manager Test Suite">
+        <testsuite name="Laravel Firebase Notification Test Suite">
             <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>

@@ -1,14 +1,14 @@
-# App Notification Manager for Laravel
+# Laravel Firebase Notification
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Creatix-Infotech/app-notification-manager/main/art/banner.png" alt="App Notification Manager Banner" width="100%">
+  <img src="https://raw.githubusercontent.com/Creatix-Infotech/laravel-firebase-notification/main/art/banner.png" alt="Laravel Firebase Notification Banner" width="100%">
 </p>
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/creatix/app-notification-manager.svg?style=flat-square)](https://packagist.org/packages/creatix/app-notification-manager)
-[![Total Downloads](https://img.shields.io/packagist/dt/creatix/app-notification-manager.svg?style=flat-square)](https://packagist.org/packages/creatix/app-notification-manager)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/creatix/laravel-firebase-notification.svg?style=flat-square)](https://packagist.org/packages/creatix/laravel-firebase-notification)
+[![Total Downloads](https://img.shields.io/packagist/dt/creatix/laravel-firebase-notification.svg?style=flat-square)](https://packagist.org/packages/creatix/laravel-firebase-notification)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
-**App Notification Manager** is an enterprise-grade Laravel package designed to send rich, high-priority, real-time push notifications to **Android** and **iOS** mobile applications—mimicking the notification experience of **WhatsApp**, **Instagram**, and **Snapchat**.
+**Laravel Firebase Notification** is an enterprise-grade Laravel package designed to send rich, high-priority, real-time push notifications to **Android** and **iOS** mobile applications—mimicking the notification experience of **WhatsApp**, **Instagram**, and **Snapchat**.
 
 Powered by the **Google FCM HTTP v1 API** (OAuth2 Service Account) and **Apple APNs HTTP/2** (`.p8` JWT tokens).
 
@@ -34,7 +34,7 @@ Powered by the **Google FCM HTTP v1 API** (OAuth2 Service Account) and **Apple A
 Install the package via Composer:
 
 ```bash
-composer require creatix/app-notification-manager
+composer require creatix/laravel-firebase-notification
 ```
 
 Publish the configuration file and optional device tokens migration:
